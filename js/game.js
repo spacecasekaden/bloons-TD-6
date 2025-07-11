@@ -21,7 +21,7 @@ class GameEngine {
         this.achievementManager = new AchievementManager();
         this.bossEventManager = new BossEventManager();
         this.soundManager = new SoundManager();
-        this.graphicsManager = new GraphicsManager();
+        this.graphicsManager = new AuthenticGraphicsManager();
         
         // Apply current game mode
         this.gameModeManager.applyCurrentMode(this.gameState);
@@ -297,12 +297,12 @@ class GameEngine {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Draw current map with authentic graphics
-        this.graphicsManager.drawMap(this.ctx, this.mapManager.currentMap);
+        // Draw current map with authentic Bloons TD 6 graphics
+        this.graphicsManager.drawAuthenticMap(this.ctx, this.mapManager.currentMap);
 
-        // Draw towers with authentic sprites
+        // Draw towers with authentic Bloons TD 6 sprites
         this.gameState.towers.forEach(tower => {
-            this.graphicsManager.drawTower(this.ctx, tower, tower.position);
+            this.graphicsManager.drawAuthenticTower(this.ctx, tower, tower.position);
             
             // Draw range indicator if tower is selected
             if (this.selectedTower === tower) {
@@ -314,31 +314,31 @@ class GameEngine {
             }
         });
 
-        // Draw heroes with authentic sprites
+        // Draw heroes with authentic Bloons TD 6 sprites
         this.gameState.heroes.forEach(hero => {
-            this.graphicsManager.drawHero(this.ctx, hero, hero.position);
+            this.graphicsManager.drawAuthenticHero(this.ctx, hero, hero.position);
         });
 
-        // Draw bloons with authentic sprites
+        // Draw bloons with authentic Bloons TD 6 sprites
         this.gameState.bloons.forEach(bloon => {
             if (bloon.isActive) {
-                this.graphicsManager.drawBloon(this.ctx, bloon);
+                this.graphicsManager.drawAuthenticBloon(this.ctx, bloon);
             }
         });
 
-        // Draw projectiles with authentic sprites
+        // Draw projectiles with authentic Bloons TD 6 sprites
         this.gameState.projectiles.forEach(projectile => {
-            this.graphicsManager.drawProjectile(this.ctx, projectile);
+            this.graphicsManager.drawAuthenticProjectile(this.ctx, projectile);
         });
 
-        // Draw effects with authentic sprites
+        // Draw effects with authentic Bloons TD 6 sprites
         this.gameState.effects.forEach(effect => {
-            this.graphicsManager.drawEffect(this.ctx, effect);
+            this.graphicsManager.drawAuthenticEffect(this.ctx, effect);
         });
 
-        // Draw bosses with authentic sprites
+        // Draw bosses with authentic Bloons TD 6 sprites
         this.gameState.bosses.forEach(boss => {
-            this.graphicsManager.drawBloon(this.ctx, boss);
+            this.graphicsManager.drawAuthenticBloon(this.ctx, boss);
         });
 
         // Draw tower preview if placing
@@ -346,8 +346,8 @@ class GameEngine {
             this.drawTowerPreview();
         }
 
-        // Draw UI overlays with authentic graphics
-        this.graphicsManager.drawUI(this.ctx, this.gameState);
+        // Draw UI overlays with authentic Bloons TD 6 graphics
+        this.graphicsManager.drawAuthenticUI(this.ctx, this.gameState);
         this.drawUI();
     }
 
