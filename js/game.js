@@ -21,6 +21,7 @@ class GameEngine {
         this.achievementManager = new AchievementManager();
         this.bossEventManager = new BossEventManager();
         this.soundManager = new SoundManager();
+        this.graphicsManager = new GraphicsManager();
         
         // Apply current game mode
         this.gameModeManager.applyCurrentMode(this.gameState);
@@ -296,33 +297,57 @@ class GameEngine {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Draw current map
-        this.mapManager.currentMap.draw(this.ctx);
+        // Draw current map with authentic graphics
+        this.graphicsManager.drawMap(this.ctx, this.mapManager.currentMap);
 
-        // Draw towers
-        this.gameState.towers.forEach(tower => tower.draw(this.ctx));
+        // Draw towers with authentic sprites
+        this.gameState.towers.forEach(tower => {
+            this.graphicsManager.drawTower(this.ctx, tower, tower.position);
+            
+            // Draw range indicator if tower is selected
+            if (this.selectedTower === tower) {
+                this.ctx.strokeStyle = 'rgba(255, 107, 53, 0.3)';
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                this.ctx.arc(tower.position.x, tower.position.y, tower.range, 0, Math.PI * 2);
+                this.ctx.stroke();
+            }
+        });
 
-        // Draw heroes
-        this.gameState.heroes.forEach(hero => hero.draw(this.ctx));
+        // Draw heroes with authentic sprites
+        this.gameState.heroes.forEach(hero => {
+            this.graphicsManager.drawHero(this.ctx, hero, hero.position);
+        });
 
-        // Draw bloons
-        this.gameState.bloons.forEach(bloon => bloon.draw(this.ctx));
+        // Draw bloons with authentic sprites
+        this.gameState.bloons.forEach(bloon => {
+            if (bloon.isActive) {
+                this.graphicsManager.drawBloon(this.ctx, bloon);
+            }
+        });
 
-        // Draw projectiles
-        this.gameState.projectiles.forEach(projectile => projectile.draw(this.ctx));
+        // Draw projectiles with authentic sprites
+        this.gameState.projectiles.forEach(projectile => {
+            this.graphicsManager.drawProjectile(this.ctx, projectile);
+        });
 
-        // Draw effects
-        this.gameState.effects.forEach(effect => effect.draw(this.ctx));
+        // Draw effects with authentic sprites
+        this.gameState.effects.forEach(effect => {
+            this.graphicsManager.drawEffect(this.ctx, effect);
+        });
 
-        // Draw bosses
-        this.gameState.bosses.forEach(boss => boss.draw(this.ctx));
+        // Draw bosses with authentic sprites
+        this.gameState.bosses.forEach(boss => {
+            this.graphicsManager.drawBloon(this.ctx, boss);
+        });
 
         // Draw tower preview if placing
         if (this.placingTower) {
             this.drawTowerPreview();
         }
 
-        // Draw UI overlays
+        // Draw UI overlays with authentic graphics
+        this.graphicsManager.drawUI(this.ctx, this.gameState);
         this.drawUI();
     }
 

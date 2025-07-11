@@ -92,42 +92,46 @@ class MapManager {
 
     createMaps() {
         return [
-            // Beginner Maps
+            // Beginner Maps - Authentic Bloons TD 6 layouts
             new Map(
                 "Monkey Meadow",
                 "beginner",
                 [
-                    new Vector2(0, 300),
-                    new Vector2(200, 300),
-                    new Vector2(200, 100),
-                    new Vector2(400, 100),
-                    new Vector2(400, 500),
-                    new Vector2(600, 500),
-                    new Vector2(600, 300),
-                    new Vector2(800, 300),
-                    new Vector2(800, 100),
-                    new Vector2(1000, 100),
-                    new Vector2(1000, 500),
-                    new Vector2(1200, 500)
+                    new Vector2(-50, 300),
+                    new Vector2(150, 300),
+                    new Vector2(150, 150),
+                    new Vector2(350, 150),
+                    new Vector2(350, 450),
+                    new Vector2(550, 450),
+                    new Vector2(550, 150),
+                    new Vector2(750, 150),
+                    new Vector2(750, 450),
+                    new Vector2(950, 450),
+                    new Vector2(950, 150),
+                    new Vector2(1150, 150),
+                    new Vector2(1150, 300),
+                    new Vector2(1350, 300)
                 ]
             ),
             new Map(
                 "Tree Stump",
                 "beginner",
                 [
-                    new Vector2(0, 300),
-                    new Vector2(150, 300),
-                    new Vector2(150, 150),
-                    new Vector2(450, 150),
-                    new Vector2(450, 450),
-                    new Vector2(750, 450),
-                    new Vector2(750, 150),
-                    new Vector2(1050, 150),
-                    new Vector2(1050, 450),
-                    new Vector2(1200, 450)
+                    new Vector2(-50, 300),
+                    new Vector2(100, 300),
+                    new Vector2(100, 150),
+                    new Vector2(400, 150),
+                    new Vector2(400, 450),
+                    new Vector2(700, 450),
+                    new Vector2(700, 150),
+                    new Vector2(1000, 150),
+                    new Vector2(1000, 450),
+                    new Vector2(1150, 450),
+                    new Vector2(1150, 300),
+                    new Vector2(1350, 300)
                 ],
                 [
-                    {x: 300, y: 250, width: 300, height: 200} // Tree stump obstacle
+                    {x: 250, y: 200, width: 400, height: 250} // Tree stump obstacle
                 ]
             ),
             new Map(
