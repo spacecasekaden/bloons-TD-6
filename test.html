@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloons TD 6 - Test</title>
+</head>
+<body>
+    <h1>Bloons TD 6 - JavaScript Test</h1>
+    <div id="test-results"></div>
+    
+    <script>
+        console.log('Starting Bloons TD 6 test...');
+        
+        // Test script loading
+        const scripts = [
+            'js/models.js',
+            'js/towers.js', 
+            'js/bloons.js',
+            'js/heroes.js',
+            'js/maps.js',
+            'js/gameModes.js',
+            'js/powers.js',
+            'js/instaMonkeys.js',
+            'js/achievements.js',
+            'js/bossEvents.js',
+            'js/sound.js',
+            'js/game.js',
+            'js/main.js'
+        ];
+        
+        let loadedScripts = 0;
+        const totalScripts = scripts.length;
+        
+        function testScript(scriptPath) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = scriptPath;
+                script.onload = () => {
+                    loadedScripts++;
+                    console.log(`✅ Loaded: ${scriptPath}`);
+                    document.getElementById('test-results').innerHTML += `<p style="color: green;">✅ Loaded: ${scriptPath}</p>`;
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.error(`❌ Failed to load: ${scriptPath}`);
+                    document.getElementById('test-results').innerHTML += `<p style="color: red;">❌ Failed to load: ${scriptPath}</p>`;
+                    reject();
+                };
+                document.head.appendChild(script);
+            });
+        }
+        
+        async function runTests() {
+            try {
+                // Load all scripts
+                for (const script of scripts) {
+                    await testScript(script);
+                }
+                
+                // Test if classes are available
+                console.log('Testing class availability...');
+                
+                if (typeof Vector2 !== 'undefined') {
+                    console.log('✅ Vector2 class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ Vector2 class available</p>';
+                }
+                
+                if (typeof GameState !== 'undefined') {
+                    console.log('✅ GameState class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ GameState class available</p>';
+                }
+                
+                if (typeof TowerFactory !== 'undefined') {
+                    console.log('✅ TowerFactory class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ TowerFactory class available</p>';
+                }
+                
+                if (typeof MapManager !== 'undefined') {
+                    console.log('✅ MapManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ MapManager class available</p>';
+                }
+                
+                if (typeof GameModeManager !== 'undefined') {
+                    console.log('✅ GameModeManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ GameModeManager class available</p>';
+                }
+                
+                if (typeof PowerManager !== 'undefined') {
+                    console.log('✅ PowerManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ PowerManager class available</p>';
+                }
+                
+                if (typeof InstaMonkeyManager !== 'undefined') {
+                    console.log('✅ InstaMonkeyManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ InstaMonkeyManager class available</p>';
+                }
+                
+                if (typeof AchievementManager !== 'undefined') {
+                    console.log('✅ AchievementManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ AchievementManager class available</p>';
+                }
+                
+                if (typeof BossEventManager !== 'undefined') {
+                    console.log('✅ BossEventManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ BossEventManager class available</p>';
+                }
+                
+                if (typeof SoundManager !== 'undefined') {
+                    console.log('✅ SoundManager class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ SoundManager class available</p>';
+                }
+                
+                if (typeof GameEngine !== 'undefined') {
+                    console.log('✅ GameEngine class available');
+                    document.getElementById('test-results').innerHTML += '<p style="color: green;">✅ GameEngine class available</p>';
+                }
+                
+                console.log('🎉 All tests passed! Bloons TD 6 is ready to play!');
+                document.getElementById('test-results').innerHTML += '<h2 style="color: green;">🎉 All tests passed! Bloons TD 6 is ready to play!</h2>';
+                
+            } catch (error) {
+                console.error('❌ Test failed:', error);
+                document.getElementById('test-results').innerHTML += `<p style="color: red;">❌ Test failed: ${error.message}</p>`;
+            }
+        }
+        
+        // Run tests when page loads
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html> 

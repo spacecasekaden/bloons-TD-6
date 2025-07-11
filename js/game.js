@@ -10,6 +10,8 @@ class GameEngine {
         this.selectedTower = null;
         this.placingTower = false;
         this.towerToPlace = null;
+        this.placingInstaMonkey = false;
+        this.instaMonkeyIndex = -1;
         
         // Initialize all systems
         this.mapManager = new MapManager();
@@ -22,6 +24,9 @@ class GameEngine {
         
         // Apply current game mode
         this.gameModeManager.applyCurrentMode(this.gameState);
+        
+        // Set the initial path from the current map
+        this.gameState.path = this.mapManager.currentMap.path;
         
         this.setupEventListeners();
         this.setupUI();
@@ -55,6 +60,8 @@ class GameEngine {
 
         if (this.placingTower) {
             this.placeTower(clickPos);
+        } else if (this.placingInstaMonkey) {
+            this.placeInstaMonkey(clickPos);
         } else {
             this.selectTowerAt(clickPos);
         }
@@ -109,16 +116,34 @@ class GameEngine {
         }
     }
 
-    isValidTowerPosition(position) {
-        // Check if position is too close to the path
-        for (let i = 0; i < this.gameState.path.length - 1; i++) {
-            const pathPoint = this.gameState.path[i];
-            const distance = position.distance(pathPoint);
-            if (distance < 40) { // Minimum distance from path
-                return false;
+    placeInstaMonkey(position) {
+        if (!this.placingInstaMonkey || this.instaMonkeyIndex < 0) return;
+
+        const availableInstaMonkeys = this.instaMonkeyManager.getAvailableInstaMonkeys();
+        if (this.instaMonkeyIndex >= availableInstaMonkeys.length) return;
+
+        const instaMonkey = availableInstaMonkeys[this.instaMonkeyIndex];
+        
+        // Check if position is valid
+        if (this.isValidTowerPosition(position)) {
+            if (instaMonkey.use(this.gameState, position)) {
+                this.soundManager.onTowerPlace();
+                alert(`${instaMonkey.getDisplayName()} placed successfully!`);
+            } else {
+                alert('Failed to place insta-monkey!');
             }
+            
+            this.placingInstaMonkey = false;
+            this.instaMonkeyIndex = -1;
+            this.canvas.style.cursor = 'default';
+        } else {
+            alert('Cannot place insta-monkey on the path!');
         }
-        return true;
+    }
+
+    isValidTowerPosition(position) {
+        // Use the current map's validation
+        return this.mapManager.currentMap.isValidTowerPosition(position);
     }
 
     selectTowerAt(position) {

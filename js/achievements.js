@@ -23,7 +23,7 @@ class Achievement {
                 return true;
             }
         } else if (result) {
-            this.comgress = 1;
+            this.progress = 1;
             this.complete();
             return true;
         }
