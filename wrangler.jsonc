@@ -1,5 +1,7 @@
 {
-  "name": "my-worker",
-  "main": "src/index.js",
-  "compatibility_date": "2025-08-24"
+  "name": "my-website",
+  "compatibility_date": "2025-08-24",
+  "assets": {
+    "directory": "./"   // or "./public" if your files are inside a public folder
+  }
 }
